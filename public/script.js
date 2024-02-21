@@ -21,9 +21,24 @@ function sendMessage() {
         replyDiv.className = "message received";
         replyDiv.textContent = data.replyMessage;
         document.getElementById("chat-box").appendChild(replyDiv);
+       
 
         // Clear the input field
         document.getElementById("user-message").value = "";
+       // Add auto-scroll after sending a message
+       scrollToBottom(); 
     })
     .catch(error => console.error('Error:', error));
+}
+function handleKeyDown(event) {
+    if (event.key === "Enter") {
+        if (document.getElementById("user-message").value.trim() !== "") {
+            sendMessage();
+            scrollToBottom(); // Add auto-scroll after sending a message
+        }
+    }
+}
+function scrollToBottom() {
+    var chatBox = document.getElementById("chat-box");
+    chatBox.scrollTop = chatBox.scrollHeight;
 }
